@@ -27,10 +27,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">Notes</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
             </div>
+        </div>
+        <div class="d-flex flex-row-reverse mr-4">
+            <ul class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="color: black;">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle" height="22"
+                        alt="Portrait of a Woman" loading="lazy" /> Rithik  </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">My Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </ul>
         </div>
     </nav>
 
@@ -51,23 +64,25 @@
 
     <div class="container">
         <form method="POST">
-            <div class="mb-1">
+            <div class="mt-2 mb-1">
                 <label for="data" class="form-label">
                     <h2>Add Note</h2>
                 </label>
                 <textarea class="form-control" id="data" name="data" rows="3"></textarea>
             </div>
-            <div class="container">
-                <button type="submit" class="btn btn-dark mt-2">Add</button>
+            <div class="row">
+                <div class="container">
+                    <button type="submit" class="btn btn-dark mt-2">Add</button>
+                </div>
             </div>
         </form>
     </div>
 
-    <div class="container mt-2">
+    <div class="container mt-5">
         <h2>Your Notes</h2>
     </div>
 
-    <div class="container">
+    <div class="container mb-3">
         <div class="row row-cols-1 row-cols-md-4 g-50">
             {% for note in notes_list %}
             <div class="col">
@@ -75,14 +90,37 @@
                     <div class="card" style="width: 20rem;">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Untitled{{loop.index}}</h5> -->
-                            {% if note.data|length <37 %}
-                            <p class="card-text">{{note.data}}</p>
-                            {% else %}
-                            <p class="card-text">{{note.data[:37]}}..</p>
-                            {% endif %}
-                            <div class="d-grid gap-2 d-md-block">
+                            <div class="note_data mb-2">
+                                {% if (note.data)|length <37 %}
+                                <p class="card-text" style="transform: rotate(0);"><a class="text-warning stretched-link"  href="/view/{{note.id}}" ></a>{{note.data}}</p>
+                                {% else %}
+                                <p class="card-text" style="transform: rotate(0);"><a class="text-warning stretched-link" href="/view/{{note.id}}" ></a>{{note.data[:37]}}..</p>
+                                {% endif %}
+                            </div>
+
+                            
+                            <!--<a href="/view.html" class="stretched-link"></a>-->
+                            <div class="d-grid gap-1 d-md-block">
                                 <a href="/edit/{{note.id}}" type="button" class="btn btn-primary btn-sm mr-2 ">Edit</a>
-                                <a href="/delete/{{note.id}}" type="button" class="btn btn-danger btn-sm mr-2 ">Delete</a>
+                                <button type="button" class="btn btn-danger btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Delete</button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to Delete this Note ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a href="/delete/{{note.id}}"type="button" class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -91,6 +129,34 @@
             {% endfor %}
         </div>
     </div>
+
+    <footer class="sticky-footer py-3 ">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About us</a></li>
+        </ul>
+        <p class="text-center text-muted">© 2022 MyNotes.Inc</p>
+    </footer>
+
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover{
+            box-shadow: 2px 2px 5px 1px #a9a9a9,-2px -2px 5px 1px #a9a9a9;
+        }
+        .sticky-footer{
+            margin-top: auto;
+            background-color: rgb(17, 17, 17);
+            margin-top: auto;
+        }
+    </style>
 
 
     <!-- Optional JavaScript; choose one of the two! -->

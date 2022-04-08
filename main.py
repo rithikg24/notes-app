@@ -89,7 +89,7 @@ def sign_up():
             db.session.commit()
             #login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            login_user(user,remember=True)
+            #login_user(user,remember=True)
             login_status=1
             return redirect("/dashboard")
 
@@ -129,6 +129,11 @@ def delete(id):
     db.session.delete(note)
     db.session.commit()
     return redirect("/dashboard")
+
+@app.route("/view/<int:id>")
+def view(id):
+    note=Note.query.filter_by(id=id).first()
+    return render_template("view.html",note=note)
 
 @app.route("/logout")
 @login_required
