@@ -75,7 +75,11 @@
                     <div class="card" style="width: 20rem;">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Untitled{{loop.index}}</h5> -->
+                            {% if note.data|length <37 %}
                             <p class="card-text">{{note.data}}</p>
+                            {% else %}
+                            <p class="card-text">{{note.data[:37]}}..</p>
+                            {% endif %}
                             <div class="d-grid gap-2 d-md-block">
                                 <a href="/edit/{{note.id}}" type="button" class="btn btn-primary btn-sm mr-2 ">Edit</a>
                                 <a href="/delete/{{note.id}}" type="button" class="btn btn-danger btn-sm mr-2 ">Delete</a>
