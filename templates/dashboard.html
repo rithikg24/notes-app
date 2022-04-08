@@ -63,31 +63,29 @@
         </form>
     </div>
 
+    <div class="container mt-2">
+        <h2>Your Notes</h2>
+    </div>
 
     <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Notes</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for note in notes_list %}
-                <tr>
-                    <th scope="row">{{loop.index}}</th>
-                    <td>{{note.data}}</td>
-                    <td>
-                        <a href="/edit/{{note.id}}" type="button" class="btn btn-primary btn-sm ">Edit</button>
-                            <a href="/delete/{{note.id}}" type="button"
-                                class="btn btn-danger btn-sm mx-2">Delete</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
+        <div class="row row-cols-1 row-cols-md-4 g-50">
+            {% for note in notes_list %}
+            <div class="col">
+                <div class="container mt-3">
+                    <div class="card" style="width: 20rem;">
+                        <div class="card-body">
+                            <!-- <h5 class="card-title">Untitled{{loop.index}}</h5> -->
+                            <p class="card-text">{{note.data}}</p>
+                            <div class="d-grid gap-2 d-md-block">
+                                <a href="/edit/{{note.id}}" type="button" class="btn btn-primary btn-sm mr-2 ">Edit</a>
+                                <a href="/delete/{{note.id}}" type="button" class="btn btn-danger btn-sm mr-2 ">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
 
